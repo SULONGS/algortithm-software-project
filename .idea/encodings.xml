@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
+    <file url="file://$PROJECT_DIR$/pom.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/SqlMapConfig.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/com/hutb/dao/IUserDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/jdbcConfig.properties" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/service/impl/QuestionBankServiceImpl.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/testFrame.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/utils/Calculate.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/utils/Chart.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/utils/DBUtils.java" charset="GBK" />
