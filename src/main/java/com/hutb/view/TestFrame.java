@@ -4,6 +4,9 @@ package com.hutb.view;
 import com.hutb.service.QuestionBankService;
 import com.hutb.service.impl.QuestionBankServiceImpl;
 import com.hutb.utils.Chart;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 import java.awt.*;
@@ -23,8 +26,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class TestFrame extends JFrame {
 
+
+public class TestFrame extends JFrame {
+    ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
     private JPanel panel = new JPanel() {
         protected void paintComponent(Graphics g) {
             Image bg;
@@ -47,7 +52,9 @@ public class TestFrame extends JFrame {
     private JButton nextbtn = new JButton("下一题");
     private JButton drawlb = new JButton("成绩图表");
     private final JButton startbtn = new JButton("开始测试");
-    private QuestionBankService questionBankService = new QuestionBankServiceImpl();
+
+    @Autowired
+    private QuestionBankService questionBankService;
 
     long startTime;
     int userAns = 0, count = 1, clun = 1;

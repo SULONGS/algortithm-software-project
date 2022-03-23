@@ -3,6 +3,9 @@ package com.hutb.view;
 
 import com.hutb.service.UserService;
 import com.hutb.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 import java.awt.Color;
@@ -16,8 +19,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class LoginFrame implements MouseListener {
 
+public class LoginFrame implements MouseListener {
+    ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
     public static JFrame loginFrame = new JFrame("登录窗口");
     private JLabel label1 = new JLabel("用户名:");
     private JTextField userNameIn = new JTextField();
@@ -32,8 +36,8 @@ public class LoginFrame implements MouseListener {
 
     private int distinguish;//用来记录鼠标悬停在哪个位置
 
-
-    UserService userService = new UserServiceImpl();
+  @Autowired
+    private UserServiceImpl userService;
 
     public LoginFrame() throws IOException {
     }
@@ -102,7 +106,6 @@ public class LoginFrame implements MouseListener {
     public void mouseClicked(MouseEvent arg0) {
         btn1.setForeground(Color.white);
         userName = userNameIn.getText();
-        System.out.println(userName);
         passWord= passWordIn.getText();
         if (distinguish == 1) {  //user click the button "登录"
             if (userService.login(userName, passWord) == 1) { //

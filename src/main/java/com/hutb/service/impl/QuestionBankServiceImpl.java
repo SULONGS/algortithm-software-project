@@ -23,7 +23,15 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     private InputStream in;
     private SqlSession sqlSession;
     private IQuestionBankDao iQuestionBankDao;
-    QuestionBank questionBank = new QuestionBank();
+    private QuestionBank questionBank;
+
+    public QuestionBank getQuestionBank() {
+        return questionBank;
+    }
+
+    public void setQuestionBank(QuestionBank questionBank) {
+        this.questionBank = questionBank;
+    }
 
     public QuestionBankServiceImpl() throws IOException {
         in = Resources.getResourceAsStream("SqlMapConfig.xml");

@@ -20,11 +20,20 @@ import java.io.InputStream;
  * @Date 2022/3/18 9:35
  * @Version 1.0
  */
+
 public class UserServiceImpl implements UserService {
     private InputStream in;
     private SqlSession sqlSession;
     private IUserDao iUserDao;
-    User user = new User();
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public UserServiceImpl() throws IOException {
         in = Resources.getResourceAsStream("SqlMapConfig.xml");
