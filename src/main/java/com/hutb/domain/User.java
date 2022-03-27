@@ -5,13 +5,14 @@ public class User {
   private long scores;
   private String name;
   private String password;
+  private int score;
 
 
-  public long getScores() {
+  public long getScore() {
     return scores;
   }
 
-  public void setScores(long scores) {
+  public void setScore(long scores) {
     this.scores = scores;
   }
 

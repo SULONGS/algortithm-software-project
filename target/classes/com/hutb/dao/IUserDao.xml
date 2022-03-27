@@ -6,6 +6,7 @@
     <resultMap id="userMap" type="user">
         <result column="name" property="name"/>
         <result column="password" property="password"/>
+        <result column="score" property="score"/>
      </resultMap>
 
     <!-- 根据用户名查询记录 -->
@@ -15,6 +16,15 @@
 
     <!--添加新用户-->
     <insert id="insertUser" >
-        insert into user(name,password) values(#{name},#{password})
+        insert into user(name,password,score) values(#{name},#{password},0)
     </insert>
+
+    <select id="selectScoreByName" resultType="INT">
+        select score from user where name=#{name};
+    </select>
+    <!--更新用户最后一轮的分数-->
+    <update id="updateScore" >
+        update  user set score=#{score} where name = #{name};
+    </update>
+
 </mapper>

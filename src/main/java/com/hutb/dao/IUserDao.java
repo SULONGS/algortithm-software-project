@@ -1,4 +1,5 @@
 package com.hutb.dao;
+
 import com.hutb.domain.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,10 +15,13 @@ import java.sql.ResultSet;
 
 public interface IUserDao {
 
+    public int updateScore(@Param("score") int score, @Param("name") String name);
+
+    public int selectScoreByName(String name);
 
     public User queryByName(String name);
 
-    public int insertUser(@Param("name")String name, @Param("password") String password);
+    public int insertUser(@Param("name") String name, @Param("password") String password);
 
 
 }

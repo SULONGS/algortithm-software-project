@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;  
   
 public class Chart extends JFrame{  
-	
 
-  
     //绘制柱形统计图  
 	ArrayList<Integer> ran=new  ArrayList<Integer>();
     public Chart(ArrayList<Integer> scores)
@@ -26,7 +24,7 @@ public class Chart extends JFrame{
         }
           
         setTitle("绘制柱形图");  
-        setBounds(100, 100,800,860);  
+        setBounds(200, 90,600,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }  
     @Override  
@@ -46,7 +44,7 @@ public class Chart extends JFrame{
             g2.drawString(100-(5*i)+"", 15, topMargin+rulerStep*i*2);//写下百分比  
             g2.drawLine(15, topMargin+rulerStep*i*2+7, Width, topMargin+rulerStep*i*2+7);//绘制灰色横线  
         }  
-        g2.setColor(Color.GREEN);
+        g2.setColor(Color.PINK);
         for(int i=0;i<ran.size();i++){//绘制柱形图  
         	
 

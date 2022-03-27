@@ -25,14 +25,6 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     private IQuestionBankDao iQuestionBankDao;
     private QuestionBank questionBank;
 
-    public QuestionBank getQuestionBank() {
-        return questionBank;
-    }
-
-    public void setQuestionBank(QuestionBank questionBank) {
-        this.questionBank = questionBank;
-    }
-
     public QuestionBankServiceImpl() throws IOException {
         in = Resources.getResourceAsStream("SqlMapConfig.xml");
         //2.获取SqlSessionFactory
@@ -43,12 +35,19 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         iQuestionBankDao = sqlSession.getMapper(IQuestionBankDao.class);
     }
 
-    public String printPaper(int id) {
+    public String printQueAndAns(int id) {
         String str;
         questionBank = iQuestionBankDao.queryById(id);
-        str = questionBank.getContent() + " " + questionBank.getUseranswer() + "    正确答案：" + questionBank.getResult() + "得分：" + questionBank.getScore();
+        str = questionBank.getContent() + " " + questionBank.getUseranswer();
         return str;
     }
+    public String printResult(int id) {
+        String str;
+        questionBank = iQuestionBankDao.queryById(id);
+        str ="正确答案：" + questionBank.getResult() + "得分：" + questionBank.getScore();
+        return str;
+    }
+
 
 
     public void recordScore(int score, int id) {

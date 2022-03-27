@@ -8,7 +8,9 @@ package com.hutb.service;
  * @Version 1.0
  */
 public interface QuestionBankService {
-    public String printPaper(int id);
+    public String printQueAndAns(int id);
+
+    public String printResult(int id);
 
     public void recordScore(int score, int id);
 

@@ -15,7 +15,7 @@ import java.io.InputStream;
 
 /**
  * @ClassName UserServiceImpl
- * @Description 
+ * @Description
  * @Author Yuan Fen, Yiyou long
  * @Date 2022/3/18 9:35
  * @Version 1.0
@@ -26,14 +26,6 @@ public class UserServiceImpl implements UserService {
     private SqlSession sqlSession;
     private IUserDao iUserDao;
     private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public UserServiceImpl() throws IOException {
         in = Resources.getResourceAsStream("SqlMapConfig.xml");
@@ -51,10 +43,8 @@ public class UserServiceImpl implements UserService {
         int passWrong = 2;
         int nameInvalid = 3;
         user = iUserDao.queryByName(name);
-        System.out.println(user);
         if (user.getName() != null) {
             if (user.getPassword().equals(password)) {
-                System.out.println(loginSuccess);
                 return loginSuccess;
             } else {
                 System.out.println(passWrong);
@@ -76,4 +66,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+    @Override
+    public int historicScore(String name) {
+
+        return iUserDao.selectScoreByName(name);
+
+    }
+
+
+    @Override
+    public int recordSum (int score,String name){
+       return iUserDao.updateScore(score,name);
+    }
 }

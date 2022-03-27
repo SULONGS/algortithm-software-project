@@ -18,4 +18,8 @@ public interface UserService {
     int login(String name,String password);
 
     Boolean register(String name,String password);
+
+    int historicScore(String name);
+
+    int recordSum(int score,String name);
 }

@@ -2,8 +2,6 @@ package com.hutb.view;
 
 
 import com.hutb.service.UserService;
-import com.hutb.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,7 +19,7 @@ import javax.swing.*;
 
 
 public class LoginFrame implements MouseListener {
-    ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
+
     public static JFrame loginFrame = new JFrame("登录窗口");
     private JLabel label1 = new JLabel("用户名:");
     private JTextField userNameIn = new JTextField();
@@ -36,42 +34,47 @@ public class LoginFrame implements MouseListener {
 
     private int distinguish;//用来记录鼠标悬停在哪个位置
 
-  @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
+
 
     public LoginFrame() throws IOException {
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
+        userService = (UserService) context.getBean("IUserService");
     }
 
     public void show() {
         loginFrame.setLayout(null);//定义空布局
-        loginFrame.setSize(460, 380);
-        loginFrame.setLocation(400, 200);
+        loginFrame.setSize(420, 600);
+        loginFrame.setLocation(420, 100);
 
         Font font = new Font("幼圆", Font.BOLD, 20);
         label1.setFont(font);
         label1.setForeground(Color.black);//设置字体颜色
         label2.setFont(font);
         label2.setForeground(Color.black);
-        label3.setFont(new Font("幼圆",Font.BOLD,15));
+        label3.setFont(new Font("幼圆", Font.BOLD, 15));
         label3.setForeground(Color.black);
         userNameIn.setOpaque(false);//设置文本框透明
-        passWordIn.setOpaque(false);
+        userNameIn.setBorder(null);
 
+        passWordIn.setOpaque(false);
+        passWordIn.setBorder(null);
         btn1.setFont(font);
-        btn1.setBackground(Color.getHSBColor(220,40,30));
-        btn1.setForeground(Color.orange);
-        btn1.setBorder(BorderFactory.createRaisedBevelBorder());//设置突出button组件
+        btn1.setBorder(null);
+        btn1.setContentAreaFilled(false);
+        btn1.setForeground(Color.black);
         btn1.setFocusPainted(false);
+
         btn2.setContentAreaFilled(false);
         btn2.setBorder(null);
-        btn2.setFont(new Font("幼圆",Font.BOLD,16));
-        btn2.setForeground(Color.getHSBColor(0,50,50));
+        btn2.setFont(new Font("幼圆", Font.BOLD, 16));
+        btn2.setForeground(Color.blue);
         btn2.setFocusPainted(false);
         JPanel bj = new JPanel() {//设置背景
             protected void paintComponent(Graphics g) {
                 Image bg;
                 try {
-                    bg = ImageIO.read(new File("src/main/resources/image/7.png"));
+                    bg = ImageIO.read(new File("src/main/resources/image/1.jpg"));
                     g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -79,13 +82,13 @@ public class LoginFrame implements MouseListener {
             }
         };
 
-        label1.setBounds(113, 65, 100, 100);
-        userNameIn.setBounds(193, 100, 150, 35);
-        label2.setBounds(113, 110, 100, 100);
-        passWordIn.setBounds(193, 145, 150, 35);
-        label3.setBounds(10, 265, 100, 100);
-        btn1.setBounds(113, 200, 230, 40);
-        btn2.setBounds(105, 304, 80, 20);
+        label1.setBounds(102, 134, 100, 100);
+        userNameIn.setBounds(185, 170, 150, 35);
+        label2.setBounds(102, 208, 100, 100);
+        passWordIn.setBounds(185, 241, 150, 35);
+        label3.setBounds(220, 288, 100, 100);
+        btn1.setBounds(75, 303, 100, 30);
+        btn2.setBounds(216, 355, 80, 20);
         loginFrame.setContentPane(bj);
         loginFrame.setLayout(null);
         loginFrame.add(label1);
@@ -106,16 +109,17 @@ public class LoginFrame implements MouseListener {
     public void mouseClicked(MouseEvent arg0) {
         btn1.setForeground(Color.white);
         userName = userNameIn.getText();
-        passWord= passWordIn.getText();
+        passWord = passWordIn.getText();
         if (distinguish == 1) {  //user click the button "登录"
             if (userService.login(userName, passWord) == 1) { //
-                JOptionPane.showMessageDialog(null, "登录成功！", "提示", 2);
+                int score = userService.historicScore(userName);
+                JOptionPane.showMessageDialog(null, "欢迎" + userName + "回来" + "您上次做题得分：" + score, "提示", 2);
                 userNameIn.setText("");
                 passWordIn.setText("");
                 distinguish = 4;
                 TestFrame testFrame = null;
                 try {
-                    testFrame = new TestFrame();
+                    testFrame = new TestFrame(userName);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -153,22 +157,15 @@ public class LoginFrame implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent arg0) {
         if (arg0.getSource() == btn1) {
-            distinguish = 1;//鼠标悬停在btn1处则把distinguish置1  
-            btn1.setBackground(Color.getHSBColor(220,40,30));//改变颜色
+            distinguish = 1;//鼠标悬停在btn1处则把distinguish置1
             btn1.setForeground(Color.white);
-            btn2.setForeground(Color.getHSBColor(0,50,50));
-            btn2.setBorder(null);
+            btn1.setBorder(null);
+
 
         }
         if (arg0.getSource() == btn2) {
             distinguish = 2;
-            btn1.setForeground(Color.orange);
-            btn1.setBackground(Color.getHSBColor(220,40,30));
-            btn1.setBorder(BorderFactory.createRaisedBevelBorder());
             btn2.setForeground(Color.white);
-            btn2.setBackground(Color.darkGray);
-
-
         }
 
     }
@@ -180,11 +177,11 @@ public class LoginFrame implements MouseListener {
         label2.setForeground(Color.black);
         userNameIn.setOpaque(false);
         passWordIn.setOpaque(false);
-        btn1.setForeground(Color.orange);
-        btn1.setBorder(BorderFactory.createRaisedBevelBorder());
+        btn1.setForeground(Color.black);
+        btn1.setBorder(null);
         btn2.setContentAreaFilled(false);
         btn2.setBorder(null);
-        btn2.setForeground(Color.getHSBColor(0,50,50));
+        btn2.setForeground(Color.blue);
 
     }
 } 
